@@ -126,14 +126,11 @@ void setJAP() {
  * @return void
  */
 void setCustom() {
-  // Idioma no japones, 60Hz
   digitalWrite(pinJAP, LOW);
   digitalWrite(pinNTSC, LOW);
   
-  // Led en rojo, por la bandera de Japon
   parpadearLED(cus,125,2);
 
-  // Guardamos la region
   region = "CUS";
 }
 
@@ -201,7 +198,13 @@ void pulsarReset() {
  * @return void
  */
 void reinicarMD() {
-  // TODO: No implementado
+  /* TODO: Esto no es real, solo para comprobar que el reset funciona cambiando
+   * el estado de un led entre encendido y apagado
+   */
+  for ( int i = 1; i < 5; i++ ) {
+    digitalWrite(pinReset, !digitalRead(pinReset));
+    delay(100);
+  }
 }
 
 /**
@@ -215,7 +218,8 @@ void controlarReset() {
   int inicioPulsacion = millis();
   int transcurrido = 0;
 
-  while ( digitalRead(resetInput) == HIGH ) {
+  // Controlamos el estado a LOW porque el reset se pone a 0 con la pulsacion
+  while ( digitalRead(resetInput) == LOW ) {
     // No es necesario hacer nada
   }
 
@@ -242,13 +246,14 @@ void setup() {
   pinMode(bled, OUTPUT);
   pinMode(gled, OUTPUT);
   pinMode(resetInput, INPUT);
+  pinMode(pinReset, OUTPUT);
 
   setEUR(); // Por defecto la region original al encender el PAL Europeo
 }
 
 void loop() {
-  // Interrupcion que se activa con le boton reset
-  attachInterrupt(digitalPinToInterrupt(2), pulsarReset, RISING);
+  // Interrupcion que se activa con le boton reset (pasa de 1 a 0 al pulsar)
+  attachInterrupt(digitalPinToInterrupt(2), pulsarReset, FALLING);
 
   // Entramos en modo sleep hasta la interrupcion
   LowPower.powerDown(SLEEP_FOREVER, ADC_OFF, BOD_OFF);
