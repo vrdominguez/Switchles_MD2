@@ -20,6 +20,9 @@ int rled = 11; // Pin rojo de led RGB
 int gled = 10; // Pin verde de led RGB
 int bled = 9;  // Pin azul de led RGB
 
+// --- CONTROL DEL BUZZER -----------------------------------------------------
+int pinBuzzer = 3;
+
 // --- COLORES LED ------------------------------------------------------------
 int jap[3] = {255,000,  0}; // Rojo para Japon
 int usa[3] = {  0,255,  0}; // Verde para USA
@@ -214,16 +217,21 @@ void reinicarMD() {
  * @return void
  */
 void controlarReset() {
-  int inicioPulsacion = millis();
   int transcurrido = 0;
 
   // Controlamos el estado a LOW porque el reset se pone a 0 con la pulsacion
   while ( digitalRead(resetInput) == LOW ) {
     delay(1);
+    transcurrido++;
+
+    if( transcurrido == 1000 ) {
+      tone(pinBuzzer, 512, 200);
+    }
+    else if ( transcurrido == 2000 ) {
+      tone(pinBuzzer, 1024, 200);
+    } 
   }
-
-  transcurrido = millis() - inicioPulsacion; 
-
+  
   if ( transcurrido >= 2000 ) {
     cambiarRegion();
   }
@@ -231,10 +239,8 @@ void controlarReset() {
     cambiarFrecuencia();
   }
   else {
-    reinicarMD(); // No implementado
+    reinicarMD();
   }
-
-  inicioPulsacion = 0;
 }
 
 // ----- EJECUCION ------------------------------------------------------------
@@ -249,6 +255,9 @@ void setup() {
   // La salida de reset tiene que estar en HIGH_Z
   pinMode(pinReset, INPUT);
   digitalWrite(pinReset, HIGH);
+
+  // Pitido de inicio
+  tone(pinBuzzer, 1024, 200);
 
   setEUR(); // Por defecto la region original al encender el PAL Europeo
 }
