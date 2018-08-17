@@ -21,7 +21,7 @@ int gled = 10; // Pin verde de led RGB
 int bled = 9;  // Pin azul de led RGB
 
 // --- CONTROL DEL BUZZER -----------------------------------------------------
-int pinBuzzer = 3;
+int pinBuzzer = 3; // Pin para buzzer (debe ser uno de los marcados como ~)
 
 // --- COLORES LED ------------------------------------------------------------
 int jap[3] = {255,000,  0}; // Rojo para Japon

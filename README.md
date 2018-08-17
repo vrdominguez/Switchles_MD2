@@ -47,3 +47,22 @@ Se corresponde con la región **Japón**, nos inidca que la consola está config
 Se corresponde con la región **USA**, nos inidca que la consola está configurada como
   - **Frecuencia de refresco:** 60Hz
   - **Idioma**: No japonés
+  
+## Avisos acústicos
+Para facilitar el control del tiempo de pulsación del botón de reset, se ha añadido al diseño un buzzer pasivo, para emitir pitidos.
+
+Al encenderse emite un pitido agudo, que sirve como referencia para distinguir los dos posibles tipos de pitido.
+
+### Pitido más grave que el de refenrecia
+Este pitido indica que se ha llegado a la pulsación "mínima" para hacer únicamente el cambio de frecuencia de refresco
+
+### Pitido igual al de referencia
+Este pitido indica que se ha llegado a la pulsación "mínima" para hacer el cambio de región
+
+## Código en arduino
+Para que el arduino arranque al instante y evitar posibles conexiones erroneas (como que resetee la consola en el arranque), no podemos cargar el software de la forma habiual, sino que tendremos que usar un programador. En el caso de mi Mega Drive, se ha hecho con un Arduino Pro Mini (ATMega328P) y un programador USBasp v2.0
+
+### Pruebas
+Las pruebas se han hecho con un Arduino Uno R3, usando LEDS para momitorizar los estados de los pines (el de la señal de reset a la consola se iluminará de fomra muy leve). Se puede ver el diagrama:
+
+![Montaje de prueba](./doc/images/circuito_breadboard.png)
