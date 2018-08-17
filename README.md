@@ -33,7 +33,7 @@ Se corresponde con la región **Europa**, nos inidca que la consola está config
   - **Frecuencia de refresco:** 50Hz
   - **Idioma**: No japonés
 
-### Morado
+### Magenta
 Se corresponde con la región **personalizada** o **custom**, nos inidca que la consola está configurada como
   - **Frecuencia de refresco:** 50Hz
   - **Idioma**: Japonés

@@ -24,10 +24,10 @@ int bled = 9;  // Pin azul de led RGB
 int jap[3] = {255,000,  0}; // Rojo para Japon
 int usa[3] = {  0,255,  0}; // Verde para USA
 int eur[3] = {  0,  0,255}; // Azul para Europa
-int cus[3] = {255, 51,255}; // Morado para "personalizada"
+int cus[3] = {255,  0,255}; // Magenta para "personalizada"
 
 // --- OTRAS VARIABLES --------------------------------------------------------
-String region       = "EUR"; // Guarda la region actual
+String region = "EUR"; // Guarda la region actual
 
 // --- FUNCIONES --------------------------------------------------------------
 /**
@@ -192,19 +192,18 @@ void pulsarReset() {
 
 /**
  * Ejecuta la accion de pulsar el reset en la Mega Drive II, poniendo durante
- * un corto espacio de tiempo la linea de reset en estado de alta impedancia
+ * un corto espacio de tiempo la linea de reset a GND, para luego volver al 
+ * estado de alta impedancia (entrada, con valor 1) 
  * 
  * @param ---
  * @return void
  */
 void reinicarMD() {
-  /* TODO: Esto no es real, solo para comprobar que el reset funciona cambiando
-   * el estado de un led entre encendido y apagado
-   */
-  for ( int i = 1; i < 5; i++ ) {
-    digitalWrite(pinReset, !digitalRead(pinReset));
-    delay(100);
-  }
+  pinMode(pinReset, OUTPUT);
+  digitalWrite(pinReset, LOW);
+  delay(150);
+  pinMode(pinReset, INPUT);
+  digitalWrite(pinReset, HIGH);
 }
 
 /**
@@ -220,7 +219,7 @@ void controlarReset() {
 
   // Controlamos el estado a LOW porque el reset se pone a 0 con la pulsacion
   while ( digitalRead(resetInput) == LOW ) {
-    // No es necesario hacer nada
+    delay(1);
   }
 
   transcurrido = millis() - inicioPulsacion; 
@@ -245,8 +244,11 @@ void setup() {
   pinMode(rled, OUTPUT);
   pinMode(bled, OUTPUT);
   pinMode(gled, OUTPUT);
-  pinMode(resetInput, INPUT);
-  pinMode(pinReset, OUTPUT);
+  pinMode(resetInput, INPUT_PULLUP);
+  
+  // La salida de reset tiene que estar en HIGH_Z
+  pinMode(pinReset, INPUT);
+  digitalWrite(pinReset, HIGH);
 
   setEUR(); // Por defecto la region original al encender el PAL Europeo
 }
