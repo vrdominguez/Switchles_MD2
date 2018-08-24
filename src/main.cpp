@@ -10,15 +10,15 @@
 #include "LowPower.h"
 
 // --- CONFIGURACION DE PINES CONECTADOS A LA CONSOLA -------------------------
-int resetInput =  2; // Controla la interrupcion del boton reset
-int pinJAP     = 12; // Controla el idioma de la consola
-int pinNTSC    = 13; // Controla la frecuencia de refresco
-int pinReset   =  8; // Controla el reseteo
+int resetInput = 2; // Controla la interrupcion del boton reset
+int pinJAP     = 7; // Controla el idioma de la consola
+int pinNTSC    = 8; // Controla la frecuencia de refresco
+int pinReset   = 9; // Controla el reseteo
 
 // --- SALIDAS PARA CONTROLAR LA ILUMINACION DEL LED --------------------------
-int rled = 11; // Pin rojo de led RGB
-int gled = 10; // Pin verde de led RGB
-int bled = 9;  // Pin azul de led RGB
+int rled = 6; // Pin rojo de led RGB
+int gled = 5; // Pin verde de led RGB
+int bled = 4;  // Pin azul de led RGB
 
 // --- CONTROL DEL BUZZER -----------------------------------------------------
 int pinBuzzer = 3; // Pin para buzzer (debe ser uno de los marcados como ~)
@@ -256,10 +256,14 @@ void setup() {
   pinMode(pinReset, INPUT);
   digitalWrite(pinReset, HIGH);
 
-  // Pitido de inicio
-  tone(pinBuzzer, 1024, 200);
-
   setEUR(); // Por defecto la region original al encender el PAL Europeo
+
+  // Pitido de inicio
+  tone(pinBuzzer, 988, 100);
+  delay(100);
+  tone(pinBuzzer, 1319, 600);
+  delay(500);
+  noTone(pinBuzzer);
 }
 
 void loop() {
