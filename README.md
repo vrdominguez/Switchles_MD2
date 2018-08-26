@@ -62,7 +62,12 @@ Este pitido indica que se ha llegado a la pulsación "mínima" para hacer el cam
 ## Código en arduino
 Para que el arduino arranque al instante y evitar posibles conexiones erroneas (como que resetee la consola en el arranque), no podemos cargar el software de la forma habiual, sino que tendremos que usar un programador. En el caso de mi Mega Drive, se ha hecho con un Arduino Pro Mini (ATMega328P) y un programador USBasp v2.0
 
-### Pruebas
+### Pruebas Arduino Uno
 Las pruebas se han hecho con un Arduino Uno R3, usando LEDS para momitorizar los estados de los pines (el de la señal de reset a la consola se iluminará de fomra muy leve). Se puede ver el diagrama:
 
-![Montaje de prueba](./doc/images/circuito_breadboard.png)
+![Montaje Arduino Uno](./doc/images/circuito_breadboard.png)
+
+### Pruebas con Arduino Pro Mini
+Para facilitar el montaje en la consola, utilizando un Arduino Pro Mini, se cambiaron las conexiones de los cables, de forma que quedasen mejor agrupados, facilitando el pase de los mismos a la zona de montarje del Arduino:
+
+![Montaje Arduino Pro Mini](./doc/images/circuito_breadboard_pro_mini.png)
