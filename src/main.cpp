@@ -24,10 +24,13 @@ int bled = 4;  // Pin azul de led RGB
 int pinBuzzer = 3; // Pin para buzzer (debe ser uno de los marcados como ~)
 
 // --- COLORES LED ------------------------------------------------------------
-int jap[3] = {255,000,  0}; // Rojo para Japon
-int usa[3] = {  0,255,  0}; // Verde para USA
-int eur[3] = {  0,  0,255}; // Azul para Europa
-int cus[3] = {255,  0,255}; // Magenta para "personalizada"
+// Para el led RGB de anodo comun, al funcionar "al reves" del de catodo comun,
+// las intensidades del color son 255 - valor desado, de modo que la intensidad
+// mayor es 0 y la menor 255
+int jap[3] = {  0,255,255}; // Rojo para Japon
+int usa[3] = {255,  0,255}; // Verde para USA
+int eur[3] = {255,255,  0}; // Azul para Europa
+int cus[3] = {  0,255,  0}; // Magenta para "personalizada"
 
 // --- OTRAS VARIABLES --------------------------------------------------------
 String region = "EUR"; // Guarda la region actual
@@ -52,9 +55,9 @@ void colorearLed ( int rgb[3] ) {
  * @return void
 */
 void apagarLed() {
-  analogWrite(rled,0);
-  analogWrite(gled,0);
-  analogWrite(bled,0);
+  analogWrite(rled,255);
+  analogWrite(gled,255);
+  analogWrite(bled,255);
 }
 
 /**
